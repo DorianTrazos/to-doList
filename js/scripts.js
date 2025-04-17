@@ -31,31 +31,23 @@ const modeChangeElement=document.getElementById('mode-button')
 let allTasks = [
     {
       id: Date.now(),
-      name: 'Comprar el pan',
+      name: 'Comprar pan',
       completed: false
     }
   ];
 
-//   const FILTERS = {
-//     ALL: 'all',
-//     ACTIVE: 'active',
-//     COMPLETED: 'completed'
-//   };
 
-//   let currentFilter=FILTERS.ALL;
 
-  let darkmMode=false;
-
-  const changeTheme = () => {
-  };
-
-  const countItemsLeft = () => {
-  };
-
-  const filterTasks=() => {
-  };
 
   const insertTasks = () => {
+    allTasks.forEach(task => {
+        const newTask = document.createElement('div');
+        newTask.classList.add('task-container');
+        
+        todoListElement.appendChild(taskContainer);//lo agrego como hijo
+
+   
+    });
   };
 
   const completeTask = () => {
@@ -70,25 +62,24 @@ let allTasks = [
   const deleteTask = () => {
     
     todoListElement.remove(taskContainerElement);
-    
-
-    
+     
   };
    
 
-const createTask = task => {
+const createTask = event => {
+    event.preventDefault();
+    allTasks.push({
+        id: Date.now(), //le doy un id a la tarea
+        name: inputElement.value, //se lo asigna el input
+        completed: false //por defecto la tarea no esta completada
+    });
+    insertTasks();
+    console.log(allTasks[1].name);//es un array asi que tengo que ubicarlo de acuerdo a su indice
+
 };
 
-const setFilter=filterTarget => {
-};
 
-const deleteAllCompletedTasks=() => {
-};
-
-insertTasks();
-
-// formElement.addEventListener('submit', event => {
-// });
+formElement.addEventListener('submit', createTask);
 
 // // filtersElement.addEventListener('click', event => {
 // // });
