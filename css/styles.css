@@ -123,7 +123,7 @@ body {
   flex-direction: column;
   gap: 10px;
   background: #f9f9f9;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
 }
 
 .task-container {
@@ -147,6 +147,11 @@ body {
   margin-right: 10px;
 }
 
+.completed {
+  text-decoration: line-through;
+  color: #b3b3b3; 
+}
+
 
 .task-label {
   flex: 1;
@@ -165,9 +170,14 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  font-size: 0.9rem;
+  font-size: 14px;
   color: #666;
+  padding: 10px;
+  border-top: #7a7a7a solid 1px;
+  background: #f9f9f9;
+  border-radius: 0 0 8px 8px;
+  padding-top: 20px;
+ 
 }
 
 .filters {
@@ -175,6 +185,9 @@ body {
   justify-content: center;
   gap: 10px;
   margin-top: 20px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
 }
 
 .filter {
@@ -183,6 +196,7 @@ body {
   color: #666;
   cursor: pointer;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .filter--active {
