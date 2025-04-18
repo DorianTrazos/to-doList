@@ -38,6 +38,7 @@ let allTasks = [
 
 
 
+//FUNCIONES
 
   const insertTasks = () => {
     allTasks.forEach(task => {
@@ -54,6 +55,7 @@ let allTasks = [
     
     if (checkboxElement.checked) {
       taskLabelElement.classList.add('completed');
+      
     }else
       taskLabelElement.classList.remove('completed');
     };
