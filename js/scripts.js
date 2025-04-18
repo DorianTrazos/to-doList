@@ -15,11 +15,11 @@ const tasksElement = document.querySelector('.todo-list');
 
 //elementos de cada task
 const todoListElement = document.getElementById('to-do-list');
-const checkboxElement = document.getElementById('checkbox');
+// const checkboxElement = document.getElementById('checkbox');
 const deleteButtonElement=document.getElementById('delete-button');
-const taskLabelElement= document.getElementById('task-label');
-const taskElement=document.getElementById('task');
-const taskContainerElement=document.getElementById('task-container');
+// const taskLabelElement= document.getElementById('task-label');
+// const taskElement=document.getElementById('task');
+// const taskContainerElement=document.getElementById('task-container');
 
 
 
@@ -40,14 +40,29 @@ let allTasks = [
 
 //FUNCIONES
 
-  const insertTasks = () => {
-    allTasks.forEach(task => {
-        const newTask = document.createElement('div');
-        newTask.classList.add('task-container');
-        
-        todoListElement.appendChild(taskContainer);//lo agrego como hijo
 
-   
+
+const insertTasks = () => {
+    todoListElement.textContent = ''; //la lista empieza vacia que sino mete todas las tareas otra vez
+    allTasks.forEach(task => { //yo ya meti en el array una tarea, ahora la recorro
+        const taskContainerElement = document.createElement('div'); //creo el div
+        taskContainerElement.classList.add('task-container'); //le doy estilo
+        taskContainerElement.dataset.id = task.id; // tuve que buscar ? como asignar dataset a un elemento creado? su id searaá el date.now
+        todoListElement.appendChild(taskContainerElement);
+
+        const checkboxElement = document.createElement('input');
+        checkboxElement.type = 'checkbox'; //que sea tipo checkbox
+        checkboxElement.classList.add('task-label::before');
+        checkboxElement.id = task.id; //asigno el id de la tarea
+        taskContainerElement.appendChild(checkboxElement);
+
+        const taskLabelElement = document.createElement('task-label');
+        taskLabelElement.classList.add('task-label');
+        taskLabelElement.textContent = task.name;
+        taskContainerElement.append(taskLabelElement);
+
+       
+
     });
   };
 
@@ -62,7 +77,7 @@ let allTasks = [
   
 
   const deleteTask = () => {
-    
+    //falta crear el boton de eliminar
     todoListElement.remove(taskContainerElement);
      
   };
