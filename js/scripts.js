@@ -96,9 +96,14 @@ const insertTasks = () => {
             console.log(task.completed);
         }
 
+        if (task.completed) { //si la tarea esta completada
+            taskContainerElement.classList.add('completed'); //le añado la clase completed
+        } else {
+            taskContainerElement.classList.remove('completed'); //si no, la quito
+        }
+
         
     });
-
 
   }
     
