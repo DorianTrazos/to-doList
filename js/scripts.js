@@ -44,6 +44,7 @@ let allTasks = [
 
 const insertTasks = () => {
     todoListElement.textContent = ''; //la lista empieza vacia que sino mete todas las tareas otra vez al hacer un task
+    inputElement.value = ''; //limpio el input al añadir una tarea
 
     //creo las cosas del task por partes
     allTasks.forEach(task => { //yo ya meti en el array una tarea, ahora la recorro
@@ -60,6 +61,17 @@ const insertTasks = () => {
         checkboxElement.checked = task.completed; //si la tarea esta completada, el checkbox estara marcado
         checkboxElement.dataset.id = task.id; //asigno el data a la tarea
         checkboxElement.id = task.id; //necesito tmb este id para el label
+
+        //como quiero que el evento exista hasta que cree ese elemento, lo añado aqui?
+        checkboxElement.addEventListener('click', () => {
+            task.completed = checkboxElement.checked; // Actualiza el estado en el array
+            if (task.completed) {
+                taskContainerElement.classList.add('completed'); // Aplica estilo si está completada
+            } else {
+                taskContainerElement.classList.remove('completed'); // Quita el estilo si no está completada
+            }
+        });
+
         taskContainerElement.append(checkboxElement);
     
 
@@ -68,49 +80,59 @@ const insertTasks = () => {
         taskLabelElement.classList.add('task-label');
         taskLabelElement.htmlFor = task.id; //asigno el id de la tarea
         taskLabelElement.textContent = task.name;
+        // if (task.completed) {
+        //     taskLabelElement.classList.add('completed'); // Aplica estilo si está completada
+        // } else {
+        //     taskLabelElement.classList.remove('completed'); // Quita el estilo si no está completada
+        // }
         taskContainerElement.append(taskLabelElement);
 
         //el boton de borrar
         const deleteButtonElement = document.createElement('img');
         deleteButtonElement.classList.add('delete-button');
         deleteButtonElement.src = 'assets/icon-cross.svg';
+
+        deleteButtonElement.addEventListener('click', () => {
+            //tengo que quitar el task del array
+            allTasks= allTasks.filter(task =>{
+                return task.id !== taskContainerElement.dataset.id; //si el id de la tarea es diferente al del contenedor, lo mantengo
+            })
+            insertTasks(allTasks) // que deje los que si estan en el array?
+        });
+
         taskContainerElement.append(deleteButtonElement);
        
 
         //meto todo al contenedot
         todoListElement.append(taskContainerElement);
 
-        checkboxElement.addEventListener('click', completeTask);
-        return taskContainerElement; //devuelvo el contenedor para que lo pinte
-
+      
     });
 
   };
 
-  const completeTask = (id) => {
-    //necesito cambiar el estado del objeto y saber si esta completada o no
-    //necesito saber que task es la que estoy modificando
-    allTasks.forEach(task => {
-        if (task.id === id) { //si el id del objeto es igual al del checkbox
-            task.completed = !task.completed; //cambio el estado de la tarea al hacer check
-            console.log(task.completed);
-        }
+//   const completeTask = (id) => {
+//     //necesito cambiar el estado del objeto y saber si esta completada o no
+//     //necesito saber que task es la que estoy modificando
+//     allTasks.forEach(task => {
+//         if (task.id === id) { //si el id del objeto es igual al del checkbox
+//             task.completed = !task.completed; //cambio el estado de la tarea al hacer check
+//             console.log(task.completed);
+//         }
 
-        if (task.completed) { //si la tarea esta completada
-            taskContainerElement.classList.add('completed'); //le añado la clase completed
-        } else {
-            taskContainerElement.classList.remove('completed'); //si no, la quito
-        }
+//         if (task.completed) { //si la tarea esta completada
+//             taskContainerElement.classList.add('completed'); //le añado la clase completed
+//         } else {
+//             taskContainerElement.classList.remove('completed'); //si no, la quito
+//         }
+//     });
 
-        
-    });
-
-  }
+//   }
     
 
-  const deleteTask = () => {
+//   const deleteTask = () => {
      
-  };
+//   };
    
 
 const createTask = event => {
@@ -134,7 +156,7 @@ formElement.addEventListener('submit', createTask);
 
 // switchElement.addEventListener('click', changeTheme);
 
-deleteButtonElement.addEventListener('click', deleteTask);
+// deleteButtonElement.addEventListener('click', deleteTask);
 
 
  
