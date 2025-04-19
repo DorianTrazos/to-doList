@@ -43,42 +43,67 @@ let allTasks = [
 
 
 const insertTasks = () => {
-    todoListElement.textContent = ''; //la lista empieza vacia que sino mete todas las tareas otra vez
+    todoListElement.textContent = ''; //la lista empieza vacia que sino mete todas las tareas otra vez al hacer un task
+
+    //creo las cosas del task por partes
     allTasks.forEach(task => { //yo ya meti en el array una tarea, ahora la recorro
+
+        //el contenedor
         const taskContainerElement = document.createElement('div'); //creo el div
         taskContainerElement.classList.add('task-container'); //le doy estilo
         taskContainerElement.dataset.id = task.id; // tuve que buscar ? como asignar dataset a un elemento creado? su id searaá el date.now
-        todoListElement.appendChild(taskContainerElement);
-
+        
+        //el checlbox
         const checkboxElement = document.createElement('input');
         checkboxElement.type = 'checkbox'; //que sea tipo checkbox
-        checkboxElement.classList.add('task-label::before');
-        checkboxElement.id = task.id; //asigno el id de la tarea
-        taskContainerElement.appendChild(checkboxElement);
+        checkboxElement.classList.add('checkbox');
+        checkboxElement.checked = task.completed; //si la tarea esta completada, el checkbox estara marcado
+        checkboxElement.dataset.id = task.id; //asigno el data a la tarea
+        checkboxElement.id = task.id; //necesito tmb este id para el label
+        taskContainerElement.append(checkboxElement);
+    
 
-        const taskLabelElement = document.createElement('task-label');
+        //el label con texto
+        const taskLabelElement = document.createElement('label');
         taskLabelElement.classList.add('task-label');
+        taskLabelElement.htmlFor = task.id; //asigno el id de la tarea
         taskLabelElement.textContent = task.name;
         taskContainerElement.append(taskLabelElement);
 
+        //el boton de borrar
+        const deleteButtonElement = document.createElement('img');
+        deleteButtonElement.classList.add('delete-button');
+        deleteButtonElement.src = 'assets/icon-cross.svg';
+        taskContainerElement.append(deleteButtonElement);
        
 
+        //meto todo al contenedot
+        todoListElement.append(taskContainerElement);
+
+        checkboxElement.addEventListener('click', completeTask);
+        return taskContainerElement; //devuelvo el contenedor para que lo pinte
+
     });
+
   };
 
-  const completeTask = () => {
+  const completeTask = (id) => {
+    //necesito cambiar el estado del objeto y saber si esta completada o no
+    //necesito saber que task es la que estoy modificando
+    allTasks.forEach(task => {
+        if (task.id === id) { //si el id del objeto es igual al del checkbox
+            task.completed = !task.completed; //cambio el estado de la tarea al hacer check
+            console.log(task.completed);
+        }
+
+        
+    });
+
+
+  }
     
-    if (checkboxElement.checked) {
-      taskLabelElement.classList.add('completed');
-      
-    }else
-      taskLabelElement.classList.remove('completed');
-    };
-  
 
   const deleteTask = () => {
-    //falta crear el boton de eliminar
-    todoListElement.remove(taskContainerElement);
      
   };
    
@@ -91,7 +116,6 @@ const createTask = event => {
         completed: false //por defecto la tarea no esta completada
     });
     insertTasks();
-    console.log(allTasks[1].name);//es un array asi que tengo que ubicarlo de acuerdo a su indice
 
 };
 
@@ -104,7 +128,7 @@ formElement.addEventListener('submit', createTask);
 // deleteCompleteElement.addEventListener('click', deleteAllCompletedTasks);
 
 // switchElement.addEventListener('click', changeTheme);
-checkboxElement.addEventListener('click', completeTask);
+
 deleteButtonElement.addEventListener('click', deleteTask);
 
 
