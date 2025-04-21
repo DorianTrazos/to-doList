@@ -30,6 +30,13 @@ darkMode = false;
 
 //FUNCIONES
 
+const updateItemsLeft = () => {
+    const itemsLeftElement = document.getElementById('items-left');
+    const remainingTasks = allTasks.filter(task => !task.completed);
+    let count = remainingTasks.length;
+    itemsLeftElement.textContent = `${count} items left`;
+  };
+
 const changeTheme = () => {
     darkMode = !darkMode;
   
@@ -103,6 +110,9 @@ const insertTasks = () => {
 
         //meto todo al contenedot
         todoListElement.append(taskContainerElement);
+
+        //ittems left 
+        updateItemsLeft();
 
       
     });
