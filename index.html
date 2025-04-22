@@ -3,45 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
     <title>TO DO LIST</title>
   </head>
   <body>
-    <header class="header">
-      <div class="header-bar">
-        <h1 class="header-title">TO DO LIST</h1>
-        <img id='mode-button' class="mode-button" src="./assets/icon-moon.svg" alt="change dark mode button" />
-      </div>  
-    </header>
     <main class="main">
       <form id="form" class="form">
         <label for="input-to-do" class="label-circle"></label>
-        <input
-          type="text"
-          id="input-to-do"
-          class="input"
-          placeholder="Create a new task..."/>
-          </form>
-          <div class="to-do-list" id="to-do-list">
-            <div class="task-container" id="task-container">
-              <input class="checkbox" type="checkbox" id="checkbox" />
-              <label for="checkbox" class="task-label" id="task-label">Make a to do list</label>
-              <img id='delete-button'class="delete-button" src="./assets/icon-cross.svg" alt="delete button" />
-            </div>
-          </div>
-          <div class="list-footer">
-            <span id="items-left">0 items left</span>
-            <span id="delete-completed">Clear Completed</span>
-          </div>
-          
-          <div class="filters">
-            <button id="button-all" class="filter filter--active">All</button>
-            <button id="button-active" class="filter">Active</button>
-            <button id="button-completed" class="filter">Completed</button>
-          </div>
+        <input type="text" id="input-to-do" class="input" placeholder="Create a new task..." />
+      </form>
+      <div class="to-do-list" id="to-do-list"></div>
+      <div id="filters" class="filters">
+        <span class="filter filter-active" data-filter="all">All</span>
+        <span class="filter" data-filter="completed">Completed</span>
+        <span class="filter" data-filter="active">Active</span>
+      </div>
     </main>
     <script src="./js/scripts.js"></script>
   </body>
